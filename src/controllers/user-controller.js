@@ -19,6 +19,25 @@ async function signUp(req,res){
     }
 }
 
+/*
+ Post: /signin
+ req-body {email:'a@ab.com',password:"1223"}
+*/ 
+async function signIn(req,res){
+    try {
+        const user = await UserService.signIn({
+            email: req.body.email,
+            password: req.body.password
+        });
+        SuccessResponse.data = user;
+        return res.status(StatusCodes.CREATED).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
+
 module.exports = {
-    signUp
+    signUp,
+    signIn
 }

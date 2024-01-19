@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.beforeCreate(function encrypt(user){
+    // + before saltround below is for converting it to integer as its comming as string 
     const encryptedPassword = bcrypt.hashSync(user.password,+ServerConfig.SALT_ROUNDS);
     user.password = encryptedPassword;
   });
