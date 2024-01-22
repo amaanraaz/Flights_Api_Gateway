@@ -5,6 +5,6 @@ const {UserController} = require('../../controllers');
 const {AuthMiddleware} = require('../../middlewares')
 
 router.post('/signup', AuthMiddleware.validateAuthRequest, UserController.signUp);
-router.post('/signin',AuthMiddleware.validateAuthRequest,UserController.signIn);
+router.post('/signin', AuthMiddleware.validateAuthRequest, UserController.signIn);
 
 module.exports = router;
