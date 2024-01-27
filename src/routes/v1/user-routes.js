@@ -6,6 +6,6 @@ const {AuthMiddleware} = require('../../middlewares')
 
 router.post('/signup', AuthMiddleware.validateAuthRequest, UserController.signUp);
 router.post('/signin', AuthMiddleware.validateAuthRequest, UserController.signIn);
-router.post('/role', UserController.addRoleToUser);
+router.post('/role', AuthMiddleware.checkAuth, AuthMiddleware.isAdmin, UserController.addRoleToUser);
 
 module.exports = router;

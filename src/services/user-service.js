@@ -82,9 +82,28 @@ async function addRoleToUser(data){
         throw new AppError('Something went wrong', StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+
+async function isAdmin(id){
+    try {
+        const user = await userRepository.get(id);
+        if(!user){
+            throw new AppError('No user found for given role', StatusCodes.NOT_FOUND);
+        }
+        const role = await roleRepository.getRoleByName(Enums.User_Roles_Enums.ADMIN);
+        if(!role){
+            throw new AppError('No user find with given role', StatusCodes.NOT_FOUND);
+        }
+        return user.hasRole(role)
+    } catch (error) {
+        if(error instanceof AppError) throw error;
+        console.log(error);
+        throw new AppError('Something went wrong', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 module.exports = {
     createUser,
     signIn,
     isAuthenticated,
-    addRoleToUser
+    addRoleToUser,
+    isAdmin
 }
